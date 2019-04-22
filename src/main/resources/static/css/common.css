@@ -1,0 +1,46 @@
+.layui-laypage-em {
+    background-color: #393D49 !important;
+}
+
+.layui-table-view {
+    margin: auto !important;
+}
+
+.layui-layer-title {
+    background: #393D49 !important;
+    color: #fff !important;
+}
+
+.layui-layer-btn0 {
+    border-color: #393D49 !important;;
+    background-color: #393D49 !important;;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    position: relative;
+}
+
+#foot {
+    position: absolute;
+    top: 706px;
+    bottom: 0;
+    height: auto;
+    width: 100%;
+    background-color: #393D49;
+}
+
+#submitButton,#testButton {
+    background-color: #393D49;
+}
+
+.layui-btn-xs-edit {
+    background-color: #393D49;
+}
+
+.layui-btn-xs-delete {
+    background-color: #b2b2b2;
+}

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>example</title>
+    <link rel="stylesheet" href="/lib/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/example.css">
+</head>
+<body>
+<ul class="layui-nav">
+    <li class="layui-nav-item"><a href="/html/websocket">webSocket</a></li>
+    <li class="layui-nav-item"><a href="/html/connection">数据源</a></li>
+    <li class="layui-nav-item layui-this"><a href="/html/example">示例代码</a></li>
+</ul>
+<pre class="layui-code">
+var socket;
+// 下面路径的123是客户端组id
+var host = "127.0.0.1:8080/web-socket/web-socket/123";
+if (typeof(WebSocket) === "undefined") {
+    console.log("您的浏览器不支持WebSocket");
+} else {
+    console.log("您的浏览器支持WebSocket");
+    if (window.location.protocol === 'http:') {
+        socket = new WebSocket("ws://" + host);
+    } else {
+        socket = new WebSocket("wss://" + host);
+    }
+    //打开事件
+    socket.onopen = function () {
+        console.log("Socket 已打开");
+        //socket.send("这是来自客户端的消息" + location.href + new Date());
+    };
+    //获得消息事件
+    socket.onmessage = function (msg) {
+        console.log(msg.data);
+    };
+    //关闭事件
+    socket.onclose = function () {
+        console.log("Socket已关闭");
+    };
+    //发生了错误事件
+    socket.onerror = function () {
+        alert("Socket发生了错误");
+    };
+    // 关闭页面时自动关闭Socket
+    $(window).unload(function () {
+        socket.close();
+    });
+}
+
+// 发送至后台服务器中, 并由后台转发给指定客户端组的所有成员
+function sendMessageToGroup(msg, groupId) {
+    if (socket) {
+        var data = {
+            msg: msg,
+            groupId: groupId
+        };
+        socket.send(JSON.stringify(data));
+    } else {
+        console.log("您的浏览器不支持WebSocket, 无法发送消息! ");
+    }
+}
+</pre>
+<script src="/lib/layui/layui.js"></script>
+<script src="/js/common.js"></script>
+<script src="/js/example.js"></script>
+</body>
+</html>

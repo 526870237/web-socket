@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>webSocket</title>
+    <link rel="stylesheet" href="/lib/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/webSocket.css">
+</head>
+<body>
+<ul class="layui-nav">
+    <li class="layui-nav-item layui-this"><a href="/html/websocket">webSocket</a></li>
+    <li class="layui-nav-item"><a href="/html/connection">数据源</a></li>
+    <li class="layui-nav-item"><a href="/html/example">示例代码</a></li>
+</ul>
+<table id="webSocket" lay-filter="webSocket"></table>
+<script type="text/html" id="webSocketBar">
+    <a class="layui-btn layui-btn-xs layui-btn-xs-edit" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs layui-btn-xs-delete" lay-event="del">删除</a>
+</script>
+<form id="addOrEdit" style="display: none" class="layui-form layui-form-pane" lay-filter="formWebSocket">
+    <div class="layui-form-item" style="display: none">
+        <div class="layui-input-block">
+            <input id="id" type="hidden" name="id" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">推送类型</label>
+        <div class="layui-input-block">
+            <input type="radio" name="type" value="1" title="定时查询" checked lay-filter="typeRadio">
+            <input type="radio" name="type" value="0" title="入库触发" lay-filter="typeRadio">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">客户端组ID</label>
+        <div class="layui-input-block">
+            <input type="text" name="clientGroupId" lay-verify="required" placeholder="请输入客户端组ID"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">数据库连接</label>
+        <div class="layui-input-block">
+            <select name="connectionId" lay-filter="connectionSelect" id="connectionSelect">
+                <option>--请选择--</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item" style="display: none" id="tableNameDiv">
+        <label class="layui-form-label">表名</label>
+        <div class="layui-input-block">
+            <select name="tableName" lay-filter="tableNameSelect" id="tableNameSelect">
+                <option>--请选择--</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item" id="querySqlDiv">
+        <label class="layui-form-label">SQL语句</label>
+        <div class="layui-input-block">
+            <textarea name="querySql" placeholder="请输入SQL语句" class="layui-textarea" id="querySqlTextarea"></textarea>
+        </div>
+    </div>
+    <div class="layui-form-item" id="submitDiv">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="submitButton" id="submitButton">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary" id="restButton">重置</button>
+        </div>
+    </div>
+</form>
+<div id="foot"></div>
+<script src="/lib/layui/layui.js"></script>
+<script src="/js/common.js"></script>
+<script src="/js/webSocket.js"></script>
+</body>
+</html>

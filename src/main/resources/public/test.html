@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+    var socket;
+    // 下面路径的123是客户端组id
+    var host = "127.0.0.1:8088/web-socket/123";
+    if (typeof(WebSocket) === "undefined") {
+        console.log("您的浏览器不支持WebSocket");
+    } else {
+        console.log("您的浏览器支持WebSocket");
+        if (window.location.protocol === 'http:') {
+            socket = new WebSocket("ws://" + host);
+        } else {
+            socket = new WebSocket("wss://" + host);
+        }
+        //打开事件
+        socket.onopen = function () {
+            console.log("Socket 已打开");
+            //socket.send("这是来自客户端的消息" + location.href + new Date());
+        };
+        //获得消息事件
+        socket.onmessage = function (msg) {
+            console.log(msg.data);
+        };
+        //关闭事件
+        socket.onclose = function () {
+            console.log("Socket已关闭");
+        };
+        //发生了错误事件
+        socket.onerror = function () {
+            alert("Socket发生了错误");
+        };
+        // 关闭页面时自动关闭Socket
+        $(window).unload(function () {
+            socket.close();
+        });
+    }
+</script>
+</body>
+</html>

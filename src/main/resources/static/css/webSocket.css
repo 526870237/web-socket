@@ -1,0 +1,11 @@
+#addOrEdit {
+    margin: 30px;
+}
+
+#submitDiv {
+    margin-left: 70%;
+}
+
+.layui-textarea {
+    height: 300px;
+}

@@ -1,0 +1,79 @@
+# 公共配置
+logging:
+  level:
+    # 指定日志等级
+    root: info
+server:
+  # 指定端口号
+  port: 8086
+  # 指定context path
+  servlet:
+    context-path:
+#    context-path: /web-socket
+
+# 选择配置
+spring:
+  profiles:
+    # 激活哪一个环境的配置
+#    active: dev
+    active: pro
+
+---
+# 开发环境
+spring:
+  profiles: dev
+  # 定时任务
+  schedule:
+    corn:
+      # 定时从缓存表中取数据放到Redis中
+      get-by-table: 0 0 0/1 * * ?
+      # 定时从Redis中取数据, 通过web-socket向前端推送
+      get-by-redis: 0 0 0/1 * * ?
+      # 定时sql查询数据数据, 通过web-socket向前端推送
+      get-by-sql: 0 0 0/1 * * ?
+  # 数据库
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/web_socket?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false
+    username: root
+    password: root
+  # Redis
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    auth:
+    database: 2
+    max-active: 8
+    max-idle: 8
+    min-idle: 0
+    max-wait: -1
+    timeout: 10000
+
+---
+# 生产环境
+spring:
+  profiles: pro
+  # 定时任务
+  schedule:
+    corn:
+      # 定时从缓存表中取数据放到Redis中
+      get-by-table: 0/1 * * * * ?
+      # 定时从Redis中取数据, 通过web-socket向前端推送
+      get-by-redis: 0/1 * * * * ?
+      # 定时sql查询数据数据, 通过web-socket向前端推送
+      get-by-sql: 0/1 * * * * ?
+  # 数据库
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/web_socket?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false
+    username: root
+    password: root
+  # Redis
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    auth:
+    database: 2
+    max-active: 8
+    max-idle: 8
+    min-idle: 0
+    max-wait: -1
+    timeout: 10000
